@@ -1,0 +1,29 @@
+{
+    "name": "efides/simplon",
+    "description": "JSON-RPC Server",
+    "homepage": "https://github.com/fightbulc/simplon",
+    "version": "0.5.0",
+    "type": "library",
+    "keywords": ["json-rpc"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Tino Ehrich",
+            "email": "opensource@efides.com",
+            "role": "developer"
+        }
+    ],
+
+    "minimum-stability": "dev",
+
+    "require": {
+        "php": ">=5.3.3",
+        "symfony/http-foundation": "2.2.*"
+    },
+
+    "autoload": {
+        "psr-0": {
+            "Simplon\\": "src/"
+        }
+    }
+}
