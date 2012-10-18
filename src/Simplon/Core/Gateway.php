@@ -43,7 +43,7 @@
      */
     private function isEnabled()
     {
-      if ($this->_apiHasKey('enabled') === FALSE)
+      if($this->_apiHasKey('enabled') === FALSE)
       {
         return FALSE;
       }
@@ -58,7 +58,7 @@
      */
     private function hasValidServices()
     {
-      if ($this->_apiHasKey('validServices') === FALSE)
+      if($this->_apiHasKey('validServices') === FALSE)
       {
         return FALSE;
       }
@@ -84,7 +84,7 @@
     protected function isValidJsonRpcRequest()
     {
       // needs to be POST method
-      if (strtolower($this
+      if(strtolower($this
         ->getRequestHandle()
         ->getMethod()) != 'post'
       )
@@ -93,19 +93,19 @@
       }
 
       // ID not empty
-      if (array_key_exists('id', $this->jsonRequest) === FALSE || empty($this->jsonRequest['id']) === TRUE)
+      if(array_key_exists('id', $this->jsonRequest) === FALSE || empty($this->jsonRequest['id']) === TRUE)
       {
         return FALSE;
       }
 
       // method not empty
-      if (array_key_exists('method', $this->jsonRequest) === FALSE || empty($this->jsonRequest['method']) === TRUE)
+      if(array_key_exists('method', $this->jsonRequest) === FALSE || empty($this->jsonRequest['method']) === TRUE)
       {
         return FALSE;
       }
 
       // params
-      if (array_key_exists('params', $this->jsonRequest) === FALSE)
+      if(array_key_exists('params', $this->jsonRequest) === FALSE)
       {
         return FALSE;
       }
@@ -118,7 +118,7 @@
     protected function isValidService()
     {
       // method needs to be listed in API definition
-      if (in_array($this->jsonRequest['method'], $this->api['validServices']) === FALSE)
+      if(in_array($this->jsonRequest['method'], $this->api['validServices']) === FALSE)
       {
         return FALSE;
       }
@@ -156,7 +156,7 @@
       $this->decodeJsonRequest();
 
       // we need a valid request
-      if (! is_array($this->jsonRequest) || ! array_key_exists('id', $this->jsonRequest) || ! array_key_exists('method', $this->jsonRequest) || ! array_key_exists('params', $this->jsonRequest))
+      if(! is_array($this->jsonRequest) || ! array_key_exists('id', $this->jsonRequest) || ! array_key_exists('method', $this->jsonRequest) || ! array_key_exists('params', $this->jsonRequest))
       {
         throw new \Exception('Invalid JSONRPC request.');
       }
@@ -165,25 +165,25 @@
       list($this->apiDomain, $this->apiClass, $this->apiMethod) = explode('.', $this->jsonRequest['method']);
 
       // API gateway needs to be enabled
-      if ($this->isEnabled() === FALSE)
+      if($this->isEnabled() === FALSE)
       {
         $this->throwException('API is not enabled');
       }
 
       // we need defined services
-      if ($this->hasValidServices() === FALSE)
+      if($this->hasValidServices() === FALSE)
       {
         $this->throwException('API is not defined');
       }
 
       // is correct jsonRPC format
-      if ($this->isValidJsonRpcRequest() === FALSE)
+      if($this->isValidJsonRpcRequest() === FALSE)
       {
         $this->throwException('Malformed service request');
       }
 
       // is valid service
-      if ($this->isValidService() === FALSE)
+      if($this->isValidService() === FALSE)
       {
         $this->throwException('Invalid service request');
       }
@@ -193,12 +193,12 @@
 
     protected function instantiateServiceClass()
     {
-      $classPath = __DIR__ . '/../../app/php/Api/' . $this->apiVersion . '/' . $this->apiDomain . '/Service/' . $this->apiClass . 'Service.php';
+      $classPath = __DIR__ . '/../../../../../../app/php/App/Api/' . $this->apiVersion . '/' . $this->apiDomain . '/Service/' . $this->apiClass . 'Service.php';
 
       // class file exists
-      if (file_exists($classPath) === FALSE)
+      if(file_exists($classPath) === FALSE)
       {
-        $this->throwException('Service class failure #1');
+        $this->throwException('Service class failure #1: Class file doesnt exist');
       }
 
       // instantiate service class
@@ -207,7 +207,7 @@
       $classMethods = get_class_methods($this->requestedServiceClass);
 
       // check if method exists in class
-      if (in_array($this->apiMethod, $classMethods) === FALSE)
+      if(in_array($this->apiMethod, $classMethods) === FALSE)
       {
         $this->throwException('Service class failure #2: missing <' . $this->apiMethod . '>');
       }
@@ -220,7 +220,12 @@
      */
     protected function getRequestParams()
     {
-      $params = $this->jsonRequest['params'][0];
+      $params = array();
+
+      if(isset($this->jsonRequest['params']) && isset($this->jsonRequest['params'][0]))
+      {
+        $params = $this->jsonRequest['params'][0];
+      }
 
       return $params;
     }
@@ -230,7 +235,7 @@
     protected function validateServiceClass()
     {
       // has auth
-      if ($this->api['auth'] === TRUE)
+      if($this->api['auth'] === TRUE)
       {
         $authClassName = '\App\\Api\\' . $this->apiVersion . '\\' . $this->apiDomain . '\Auth';
         $params = $this->getRequestParams();
