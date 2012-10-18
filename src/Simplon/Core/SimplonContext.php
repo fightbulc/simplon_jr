@@ -38,7 +38,7 @@
       {
         $app = array();
 
-        require __DIR__ . '/../../app/simplon/common.config.php';
+        require __DIR__ . '/../../../../../../app/config/common.config.php';
 
         /**
          * get current environment
@@ -83,79 +83,5 @@
       }
 
       return $config;
-    }
-
-    // ########################################
-
-    /**
-     * @return Vo\Config\CoreDatabaseConfigVo
-     */
-    public function getDatabaseConfig()
-    {
-      $configVo = new \Simplon\Vo\Config\CoreDatabaseConfigVo();
-      $configVo->setData($this->getConfigByKeys(array('database')));
-
-      return $configVo;
-    }
-
-    // ########################################
-
-    /**
-     * @return Vo\Config\CoreMysqlConfigVo
-     */
-    public function getMysqlConfig()
-    {
-      $databaseConfig = $this
-        ->getDatabaseConfig()
-        ->getMysqlConfig();
-
-      $mysqlConfig = array_shift($databaseConfig);
-
-      $configVo = new \Simplon\Vo\Config\CoreMysqlConfigVo();
-      $configVo->setData($mysqlConfig);
-
-      return $configVo;
-    }
-
-    // ########################################
-
-    /**
-     * @return Vo\Config\CoreCouchbaseConfigVo
-     */
-    public function getCouchbaseMasterConfig()
-    {
-      $databaseConfig = $this
-        ->getDatabaseConfig()
-        ->getCouchbaseConfig();
-
-      $couchbaseConfig = array_shift($databaseConfig);
-
-      $configVo = new \Simplon\Vo\Config\CoreCouchbaseConfigVo();
-      $configVo->setData($couchbaseConfig);
-
-      return $configVo;
-    }
-
-    // ########################################
-
-    /**
-     * @return Vo\Config\CoreThirdPartyConfigVo
-     */
-    public function getThirdPartyConfigVo()
-    {
-      return new \Simplon\Vo\Config\CoreThirdPartyConfigVo();
-    }
-
-    // ########################################
-
-    /**
-     * @return Vo\Config\CoreThirdPartyConfigVo
-     */
-    public function getThirdPartyConfig()
-    {
-      $configVo = $this->getThirdPartyConfigVo();
-      $configVo->setData($this->getConfigByKeys(array('thirdParty')));
-
-      return $configVo;
     }
   }
