@@ -26,6 +26,4 @@
             "Simplon\\Core\\": "src/"
         }
     },
-
-    "target-dir": "Simplon/Core"
 }
