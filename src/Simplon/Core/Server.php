@@ -21,7 +21,7 @@
      */
     protected function getRequestHandle()
     {
-      if (isset($this->_requestHandle) === FALSE)
+      if(isset($this->_requestHandle) === FALSE)
       {
         $this->_requestHandle = \Symfony\Component\HttpFoundation\Request::createFromGlobals();
       }
@@ -36,7 +36,7 @@
      */
     protected function getResponseHandle()
     {
-      if (isset($this->_responseHandle) === FALSE)
+      if(isset($this->_responseHandle) === FALSE)
       {
         $this->_responseHandle = new \Symfony\Component\HttpFoundation\Response();
       }
@@ -57,7 +57,7 @@
         'text' => 'text/plain',
       );
 
-      if (!isset($contentTypes) === FALSE)
+      if(! isset($contentTypes) === FALSE)
       {
         $type = 'json';
       }
@@ -84,7 +84,7 @@
      */
     protected function setResponseCharset($charset = '')
     {
-      if (isset($charset) === FALSE)
+      if(isset($charset) === FALSE)
       {
         $charset = 'utf-8';
       }
