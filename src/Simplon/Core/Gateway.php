@@ -33,7 +33,7 @@
         ->getRequestHandle()
         ->getContent();
 
-      $this->jsonRequest = \Simplon\Lib\Helper\FormatHelper::jsonDecode($requestContent);
+      $this->jsonRequest = json_decode($requestContent, TRUE);
     }
 
     // ##########################################

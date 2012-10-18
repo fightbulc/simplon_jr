@@ -106,7 +106,7 @@
         'result' => $content,
       );
 
-      $json = \Simplon\Lib\Helper\FormatHelper::jsonEncode($response);
+      $json = json_encode($response);
 
       $this
         ->getResponseHandle()
