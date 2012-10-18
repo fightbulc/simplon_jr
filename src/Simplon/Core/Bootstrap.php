@@ -1,6 +1,6 @@
 <?php
 
-  require_once __DIR__ . '/../../../../vendor/autoload.php';
+  require_once __DIR__ . '/../../../../../autoload.php';
 
   // ############################################
 
@@ -25,7 +25,7 @@
 
   function _errorHandling($errNo, $errStr, $errorFile, $errorLine)
   {
-    $server = new \Simplon\Server;
+    $server = new \Simplon\Core\Server;
 
     $error = array(
       'error' => array(
@@ -57,7 +57,7 @@
    */
   function _exceptionHandling($exception)
   {
-    $server = new \Simplon\Server;
+    $server = new \Simplon\Core\Server;
 
     $error = array(
       'error' => array(
