@@ -1,7 +1,7 @@
 {
-    "name": "efides/simplon",
+    "name": "simplon/core",
     "description": "JSON-RPC Server",
-    "homepage": "https://github.com/fightbulc/simplon",
+    "homepage": "https://github.com/fightbulc/simplon_core",
     "version": "0.5.0",
     "type": "library",
     "keywords": ["json-rpc"],
@@ -23,7 +23,7 @@
 
     "autoload": {
         "psr-0": {
-            "Simplon\\": "src/"
+            "Simplon\\Core\\": "src/"
         }
     }
 }
