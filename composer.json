@@ -25,5 +25,7 @@
         "psr-0": {
             "Simplon\\Core\\": "src/"
         }
-    }
+    },
+
+    "target-dir": "Simplon/Core"
 }
