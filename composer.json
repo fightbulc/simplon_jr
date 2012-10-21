@@ -2,7 +2,7 @@
     "name": "simplon/core",
     "description": "JSON-RPC Server",
     "homepage": "https://github.com/fightbulc/simplon_core",
-    "version": "0.5.0",
+    "version": "1.0.0",
     "type": "library",
     "keywords": ["json-rpc"],
     "license": "MIT",
@@ -18,7 +18,7 @@
 
     "require": {
         "php": ">=5.3.3",
-        "symfony/http-foundation": "2.2.*"
+        "symfony/http-foundation": "2.1.2"
     },
 
     "autoload": {
