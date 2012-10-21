@@ -1,6 +1,6 @@
 <?php
 
-  namespace Simplon;
+  namespace Simplon\Core;
 
   class SimplonContext
   {
