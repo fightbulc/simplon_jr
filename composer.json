@@ -18,6 +18,7 @@
 
     "require": {
         "php": ">=5.3.3",
+        "ext-json": "*",
         "symfony/http-foundation": "2.1.2"
     },
 
