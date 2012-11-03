@@ -1,6 +1,6 @@
 <?php
 
-  namespace Simplon\Core\Abstracts;
+  namespace Simplon\Jr\Abstracts;
 
   class AbstractVoRequest extends AbstractVo
   {

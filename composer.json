@@ -1,7 +1,7 @@
 {
-    "name": "simplon/core",
+    "name": "simplon/jr",
     "description": "JSON-RPC Server",
-    "homepage": "https://github.com/fightbulc/simplon_core",
+    "homepage": "https://github.com/fightbulc/simplon_jr",
     "version": "0.5.1",
     "type": "library",
     "keywords": ["json-rpc"],
@@ -19,12 +19,13 @@
     "require": {
         "php": ">=5.3.3",
         "ext-json": "*",
-        "symfony/http-foundation": "2.1.2"
+        "simplon/border": "dev-master"
     },
 
     "autoload": {
         "psr-0": {
-            "Simplon\\Core\\": "src/"
+            "Simplon\\Jr\\": "src/",
+            "App\\":"test/"
         }
     }
 }

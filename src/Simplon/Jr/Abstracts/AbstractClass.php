@@ -1,15 +1,15 @@
 <?php
 
-  namespace Simplon\Core\Abstracts;
+  namespace Simplon\Jr\Abstracts;
 
   class AbstractClass
   {
     /**
-     * @return \Simplon\Core\SimplonContext
+     * @return \Simplon\Jr\SimplonContext
      */
     protected function getSimplonContext()
     {
-      return \Simplon\Core\SimplonContext::getInstance();
+      return \Simplon\Jr\SimplonContext::getInstance();
     }
 
     // ########################################
