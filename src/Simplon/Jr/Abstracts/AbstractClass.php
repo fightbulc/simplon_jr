@@ -5,11 +5,11 @@
   class AbstractClass
   {
     /**
-     * @return \Simplon\Jr\SimplonContext
+     * @return \Simplon\Jr\SimplonJrContext
      */
     protected function getSimplonContext()
     {
-      return \Simplon\Jr\SimplonContext::getInstance();
+      return \Simplon\Jr\SimplonJrContext::getInstance();
     }
 
     // ########################################
