@@ -75,10 +75,10 @@
     // ##########################################
 
     /**
-     * @param $id
+     * @param $type
      * @return Server
      */
-    protected function setResponseType($id)
+    protected function setResponseType($type)
     {
       $this->_responseType = $type;
 
