@@ -11,6 +11,9 @@
     protected $_responseHandle;
 
     /** @var string */
+    protected $_responseId;
+
+    /** @var string */
     protected $_responseType;
 
     /** @var array */
@@ -49,11 +52,60 @@
     // ##########################################
 
     /**
-     * @return array
+     * @param $id
+     * @return Server
+     */
+    protected function setResponseId($id)
+    {
+      $this->_responseId = $id;
+
+      return $this;
+    }
+
+    // ##########################################
+
+    /**
+     * @return string
+     */
+    protected function getResponseId()
+    {
+      return $this->_responseId;
+    }
+
+    // ##########################################
+
+    /**
+     * @param $id
+     * @return Server
+     */
+    protected function setResponseType($id)
+    {
+      $this->_responseType = $type;
+
+      return $this;
+    }
+
+    // ##########################################
+
+    /**
+     * @return string
      */
     protected function getResponseType()
     {
       return $this->_responseType;
+    }
+
+    // ##########################################
+
+    /**
+     * @param array $content
+     * @return Server
+     */
+    protected function setResponseContent(array $content)
+    {
+      $this->_responseContent = $content;
+
+      return $this;
     }
 
     // ##########################################
@@ -64,23 +116,6 @@
     protected function getResponseContent()
     {
       return $this->_responseContent;
-    }
-
-    // ##########################################
-
-    /**
-     * @return bool|string
-     */
-    protected function getResponseContentId()
-    {
-      $content = $this->getResponseContent();
-
-      if(! isset($content['id']))
-      {
-        return FALSE;
-      }
-
-      return $content['id'];
     }
 
     // ##########################################
@@ -101,27 +136,15 @@
     // ##########################################
 
     /**
-     * @param $type
-     * @param $content
-     * @return Server
-     */
-    protected function setResponseContent($type, $content)
-    {
-      $this->_responseType = $type;
-      $this->_responseContent = $content;
-
-      return $this;
-    }
-
-    // ##########################################
-
-    /**
+     * @param $responseId
      * @param array $response
      */
-    public function setSuccessfulResponse(array $response)
+    public function setSuccessfulResponse($responseId, array $response)
     {
       $this->setResponseStatusCode('200');
-      $this->setResponseContent('result', $response);
+      $this->setResponseId($responseId);
+      $this->setResponseType('result');
+      $this->setResponseContent($response);
     }
 
     // ##########################################
@@ -132,7 +155,8 @@
     public function setErrorResponse(array $error)
     {
       $this->setResponseStatusCode('500');
-      $this->setResponseContent('error', $error);
+      $this->setResponseType('error');
+      $this->setResponseContent($error);
     }
 
     // ##########################################
@@ -142,26 +166,19 @@
      */
     public function sendResponse()
     {
-      $id = $this->getResponseContentId();
-      $type = $this->getResponseType();
-      $content = $this->getResponseContent();
-
       return $this
         ->getResponseHandle()
-        ->sendJsonRpc(1, $type, $content);
+        ->sendJsonRpc($this->getResponseType(), $this->getResponseContent(), $this->getResponseId());
     }
 
     // ##########################################
 
     /**
      * @param $errorMessage
-     * @return bool
      * @throws \Exception
      */
     protected function throwException($errorMessage)
     {
       throw new \Exception($errorMessage);
-
-      return FALSE;
     }
   }
