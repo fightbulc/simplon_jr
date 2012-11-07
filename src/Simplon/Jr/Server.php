@@ -98,10 +98,10 @@
     // ##########################################
 
     /**
-     * @param array $content
+     * @param $content
      * @return Server
      */
-    protected function setResponseContent(array $content)
+    protected function setResponseContent($content)
     {
       $this->_responseContent = $content;
 
@@ -137,9 +137,9 @@
 
     /**
      * @param $responseId
-     * @param array $response
+     * @param $response
      */
-    public function setSuccessfulResponse($responseId, array $response)
+    public function setSuccessfulResponse($responseId, $response)
     {
       $this->setResponseStatusCode('200');
       $this->setResponseId($responseId);
