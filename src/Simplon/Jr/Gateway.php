@@ -2,13 +2,13 @@
 
   namespace Simplon\Jr;
 
-  class Gateway extends \Simplon\Jr\Server
+  abstract class Gateway extends \Simplon\Jr\Server implements \Simplon\Jr\Interfaces\InterfaceGateway
   {
     protected $apiDefinition = array();
     protected $apiNamespace;
-    protected $apiDomain;
-    protected $apiClass;
-    protected $apiMethod;
+    protected $_requestedDomain;
+    protected $_requestedClass;
+    protected $_requestedMethod;
     protected $instantiatedServiceClass;
 
     // ##########################################
@@ -33,63 +33,64 @@
       date_default_timezone_set('UTC');
 
       // load gateway
-      $this->load();
-    }
-
-    // ##########################################
-
-    protected function load()
-    {
-      $this->setApiDefinition($this->init());
-
-      $this->validateRequest();
-
-      $this->runAuthentication();
-
-      $this->runServiceClass();
+      $this->_load();
     }
 
     // ##########################################
 
     /**
-     * @return array
+     * @return bool
      */
-    protected function init()
+    public function isEnabled()
     {
-      return array();
+      return FALSE;
     }
 
     // ##########################################
 
     /**
-     * @param $apiDefinition
-     * @return Gateway
+     * @return bool
      */
-    protected function setApiDefinition($apiDefinition)
+    public function getNamespace()
     {
-      // set definition
-      $this->apiDefinition = $apiDefinition;
+      return FALSE;
+    }
 
+    // ##########################################
+
+    /**
+     * @return bool
+     */
+    public function hasAuth()
+    {
+      return FALSE;
+    }
+
+    // ##########################################
+
+    /**
+     * @return bool
+     */
+    public function getValidServices()
+    {
+      return FALSE;
+    }
+
+    // ##########################################
+
+    protected function _load()
+    {
       // extract domain, class and method name
-      $this->prepareDomainClassMethodValues();
+      $this->_prepareDomainClassMethodValues();
 
-      return $this;
-    }
+      // is JSON RPC request valid?
+      $this->_validateRequest();
 
-    // ##########################################
+      // run auth if enabled
+      $this->_runAuthentication();
 
-    /**
-     * @param $key
-     * @return bool|mixed
-     */
-    protected function getApiDefinitionByKey($key)
-    {
-      if(! isset($this->apiDefinition[$key]))
-      {
-        return FALSE;
-      }
-
-      return $this->apiDefinition[$key];
+      // run requested service
+      $this->_runServiceClass();
     }
 
     // ##########################################
@@ -97,7 +98,7 @@
     /**
      * @return mixed
      */
-    protected function getRequestId()
+    protected function _getRequestId()
     {
       return $this
         ->getRequestHandle()
@@ -109,7 +110,7 @@
     /**
      * @return mixed
      */
-    protected function getRequestMethod()
+    protected function _getRequestMethod()
     {
       return $this
         ->getRequestHandle()
@@ -121,7 +122,7 @@
     /**
      * @return bool|mixed
      */
-    protected function getRequestParams()
+    protected function _getRequestParams()
     {
       return $this
         ->getRequestHandle()
@@ -133,9 +134,9 @@
     /**
      * @return bool
      */
-    protected function prepareDomainClassMethodValues()
+    protected function _prepareDomainClassMethodValues()
     {
-      list($this->apiDomain, $this->apiClass, $this->apiMethod) = explode('.', $this->getRequestMethod());
+      list($this->_requestedDomain, $this->_requestedClass, $this->_requestedMethod) = explode('.', $this->_getRequestMethod());
 
       return TRUE;
     }
@@ -143,31 +144,11 @@
     // ##########################################
 
     /**
-     * @return bool|mixed
-     */
-    protected function isEnabled()
-    {
-      return $this->getApiDefinitionByKey('enabled');
-    }
-
-    // ##########################################
-
-    /**
-     * @return bool|mixed
-     */
-    protected function getApiNamespace()
-    {
-      return $this->getApiDefinitionByKey('namespace');
-    }
-
-    // ##########################################
-
-    /**
      * @return string
      */
-    protected function getApiNamespacePath()
+    protected function _getNamespacePath()
     {
-      $namespaceParts = explode('\\', $this->getApiNamespace());
+      $namespaceParts = explode('\\', $this->getNamespace());
 
       return implode('/', $namespaceParts);
     }
@@ -175,21 +156,11 @@
     // ##########################################
 
     /**
-     * @return bool|mixed
+     * @return mixed
      */
-    protected function hasAuth()
+    protected function _getRequestedDomain()
     {
-      return $this->getApiDefinitionByKey('auth');
-    }
-
-    // ##########################################
-
-    /**
-     * @return bool|mixed
-     */
-    protected function getApiValidServices()
-    {
-      return $this->getApiDefinitionByKey('validServices');
+      return $this->_requestedDomain;
     }
 
     // ##########################################
@@ -197,9 +168,9 @@
     /**
      * @return mixed
      */
-    protected function getApiDomain()
+    protected function _getRequestedClass()
     {
-      return $this->apiDomain;
+      return $this->_requestedClass;
     }
 
     // ##########################################
@@ -207,19 +178,9 @@
     /**
      * @return mixed
      */
-    protected function getApiClass()
+    protected function _getRequestedMethod()
     {
-      return $this->apiClass;
-    }
-
-    // ##########################################
-
-    /**
-     * @return mixed
-     */
-    protected function getApiMethod()
-    {
-      return $this->apiMethod;
+      return $this->_requestedMethod;
     }
 
     // ##########################################
@@ -227,7 +188,7 @@
     /**
      * @return bool
      */
-    protected function validateRequest()
+    protected function _validateRequest()
     {
       $isJsonRpc = $this
         ->getRequestHandle()
@@ -236,19 +197,19 @@
       // generic structure check
       if(! $isJsonRpc)
       {
-        $this->throwException('Invalid JSON-RPC request');
+        $this->_throwException('Invalid JSON-RPC request');
       }
 
       // check if listed within valid services
       if(! $this->isEnabled())
       {
-        $this->throwException('Service Gateway access is not permitted.');
+        $this->_throwException('Service Gateway access is not permitted.');
       }
 
       // check if listed within valid services
-      if(! in_array($this->getRequestMethod(), $this->getApiValidServices()))
+      if(! in_array($this->_getRequestMethod(), $this->getValidServices()))
       {
-        $this->throwException('Service Request is not permitted.');
+        $this->_throwException('Service Request is not permitted.');
       }
 
       return TRUE;
@@ -259,19 +220,19 @@
     /**
      * @return bool
      */
-    protected function runAuthentication()
+    protected function _runAuthentication()
     {
       if($this->hasAuth() === TRUE)
       {
-        $authClassName = $this->getApiNamespace() . '\Auth';
-        $params = $this->getRequestParams();
+        $authClassName = $this->getNamespace() . '\Auth';
+        $params = $this->_getRequestParams();
         $authClassInstance = new $authClassName();
 
         // validate class
         $classReflector = new \ReflectionClass($authClassInstance);
         $methodName = 'init';
-        $requestParams = $this->getRequestParams();
-        $preparedMethodParams = $this->getPreparedMethodParameters($classReflector, $methodName, $requestParams);
+        $requestParams = $this->_getRequestParams();
+        $preparedMethodParams = $this->_getPreparedMethodParameters($classReflector, $methodName, $requestParams);
 
         // run auth
         $authClassResponse = $classReflector
@@ -280,7 +241,7 @@
 
         if($authClassResponse === FALSE)
         {
-          $this->throwException('Authentication failed.');
+          $this->_throwException('Authentication failed.');
         }
       }
 
@@ -292,11 +253,11 @@
     /**
      * @return mixed
      */
-    protected function getInstantiatedServiceClass()
+    protected function _getInstantiatedServiceClass()
     {
       if(! $this->instantiatedServiceClass)
       {
-        $serviceClassNamespace = $this->getApiNamespace() . '\\Service\\' . $this->getApiClass() . 'Service';
+        $serviceClassNamespace = $this->getNamespace() . '\\Service\\' . $this->_getRequestedClass() . 'Service';
         $this->instantiatedServiceClass = new $serviceClassNamespace();
       }
 
@@ -311,12 +272,12 @@
      * @param $requestParams
      * @return array
      */
-    protected function getPreparedMethodParameters(\ReflectionClass $classReflector, $methodName, $requestParams)
+    protected function _getPreparedMethodParameters(\ReflectionClass $classReflector, $methodName, $requestParams)
     {
       // check if method exists
       if(! $classReflector->hasMethod($methodName))
       {
-        $this->throwException('Missing method (case-sensitive): ' . $methodName);
+        $this->_throwException('Missing method (case-sensitive): ' . $methodName);
       }
 
       // get parameters reflector
@@ -345,7 +306,7 @@
       // report missing parameters
       if(count($missingParams) > 0)
       {
-        $this->throwException('Missing parameters (case-sensitive): ' . join(', ', $missingParams));
+        $this->_throwException('Missing parameters (case-sensitive): ' . join(', ', $missingParams));
       }
 
       // return params in correct order
@@ -354,15 +315,15 @@
 
     // ##########################################
 
-    protected function runServiceClass()
+    protected function _runServiceClass()
     {
-      $classInstance = $this->getInstantiatedServiceClass();
+      $classInstance = $this->_getInstantiatedServiceClass();
       $classReflector = new \ReflectionClass($classInstance);
-      $methodName = $this->getApiMethod();
-      $requestParams = $this->getRequestParams();
+      $methodName = $this->_getRequestedMethod();
+      $requestParams = $this->_getRequestParams();
 
       // validate class
-      $preparedMethodParams = $this->getPreparedMethodParameters($classReflector, $methodName, $requestParams);
+      $preparedMethodParams = $this->_getPreparedMethodParameters($classReflector, $methodName, $requestParams);
 
       // run class
       $serviceClassResponse = $classReflector
@@ -370,7 +331,7 @@
         ->invokeArgs($classInstance, $preparedMethodParams);
 
       // set response
-      $this->setSuccessfulResponse($this->getRequestId(), $serviceClassResponse);
+      $this->setSuccessfulResponse($this->_getRequestId(), $serviceClassResponse);
 
       // send
       $this->sendResponse();
