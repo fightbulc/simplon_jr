@@ -24,7 +24,7 @@
     /**
      * @return \Simplon\Border\Request
      */
-    protected function getRequestHandle()
+    protected function _getRequestHandle()
     {
       if(isset($this->_requestHandle) === FALSE)
       {
@@ -39,7 +39,7 @@
     /**
      * @return \Simplon\Border\Response
      */
-    protected function getResponseHandle()
+    protected function _getResponseHandle()
     {
       if(isset($this->_responseHandle) === FALSE)
       {
@@ -55,7 +55,7 @@
      * @param $id
      * @return Server
      */
-    protected function setResponseId($id)
+    protected function _setResponseId($id)
     {
       $this->_responseId = $id;
 
@@ -67,7 +67,7 @@
     /**
      * @return string
      */
-    protected function getResponseId()
+    protected function _getResponseId()
     {
       return $this->_responseId;
     }
@@ -78,7 +78,7 @@
      * @param $type
      * @return Server
      */
-    protected function setResponseType($type)
+    protected function _setResponseType($type)
     {
       $this->_responseType = $type;
 
@@ -90,7 +90,7 @@
     /**
      * @return string
      */
-    protected function getResponseType()
+    protected function _getResponseType()
     {
       return $this->_responseType;
     }
@@ -101,7 +101,7 @@
      * @param $content
      * @return Server
      */
-    protected function setResponseContent($content)
+    protected function _setResponseContent($content)
     {
       $this->_responseContent = $content;
 
@@ -113,7 +113,7 @@
     /**
      * @return array
      */
-    protected function getResponseContent()
+    protected function _getResponseContent()
     {
       return $this->_responseContent;
     }
@@ -124,10 +124,10 @@
      * @param $code
      * @return Server
      */
-    protected function setResponseStatusCode($code)
+    protected function _setResponseStatusCode($code)
     {
       $this
-        ->getResponseHandle()
+        ->_getResponseHandle()
         ->setStatusCode($code);
 
       return $this;
@@ -141,10 +141,10 @@
      */
     public function setSuccessfulResponse($responseId, $response)
     {
-      $this->setResponseStatusCode('200');
-      $this->setResponseId($responseId);
-      $this->setResponseType('result');
-      $this->setResponseContent($response);
+      $this->_setResponseStatusCode('200');
+      $this->_setResponseId($responseId);
+      $this->_setResponseType('result');
+      $this->_setResponseContent($response);
     }
 
     // ##########################################
@@ -154,9 +154,9 @@
      */
     public function setErrorResponse(array $error)
     {
-      $this->setResponseStatusCode('500');
-      $this->setResponseType('error');
-      $this->setResponseContent($error);
+      $this->_setResponseStatusCode('500');
+      $this->_setResponseType('error');
+      $this->_setResponseContent($error);
     }
 
     // ##########################################
@@ -167,8 +167,8 @@
     public function sendResponse()
     {
       return $this
-        ->getResponseHandle()
-        ->sendJsonRpc($this->getResponseType(), $this->getResponseContent(), $this->getResponseId());
+        ->_getResponseHandle()
+        ->sendJsonRpc($this->_getResponseType(), $this->_getResponseContent(), $this->_getResponseId());
     }
 
     // ##########################################
@@ -177,7 +177,7 @@
      * @param $errorMessage
      * @throws \Exception
      */
-    protected function throwException($errorMessage)
+    protected function _throwException($errorMessage)
     {
       throw new \Exception($errorMessage);
     }
