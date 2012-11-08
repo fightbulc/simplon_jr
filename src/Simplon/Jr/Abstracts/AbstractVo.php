@@ -2,7 +2,7 @@
 
   namespace Simplon\Jr\Abstracts;
 
-  class AbstractVo extends AbstractClass
+  abstract class AbstractVo
   {
     /**
      * @var array

@@ -2,7 +2,7 @@
 
   namespace Simplon\Jr\Abstracts;
 
-  class AbstractTaskClass extends AbstractClass
+  abstract class AbstractTaskClass
   {
     protected function respond($message, $dump = FALSE)
     {

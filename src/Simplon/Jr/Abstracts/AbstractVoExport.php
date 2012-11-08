@@ -2,7 +2,7 @@
 
   namespace Simplon\Jr\Abstracts;
 
-  class AbstractVoExport
+  abstract class AbstractVoExport
   {
     /**
      * @param $vo
