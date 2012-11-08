@@ -101,7 +101,7 @@
     protected function _getRequestId()
     {
       return $this
-        ->getRequestHandle()
+        ->_getRequestHandle()
         ->getJsonRpcId();
     }
 
@@ -113,7 +113,7 @@
     protected function _getRequestMethod()
     {
       return $this
-        ->getRequestHandle()
+        ->_getRequestHandle()
         ->getJsonRpcMethod();
     }
 
@@ -125,7 +125,7 @@
     protected function _getRequestParams()
     {
       return $this
-        ->getRequestHandle()
+        ->_getRequestHandle()
         ->getJsonRpcParams();
     }
 
@@ -191,7 +191,7 @@
     protected function _validateRequest()
     {
       $isJsonRpc = $this
-        ->getRequestHandle()
+        ->_getRequestHandle()
         ->isJsonRpc();
 
       // generic structure check
@@ -207,7 +207,7 @@
       }
 
       // check if listed within valid services
-      if(! in_array($this->_getRequestMethod(), $this->getValidServices()))
+      if($this->getValidServices() === FALSE || ! in_array($this->_getRequestMethod(), $this->getValidServices()))
       {
         $this->_throwException('Service Request is not permitted.');
       }
@@ -225,7 +225,6 @@
       if($this->hasAuth() === TRUE)
       {
         $authClassName = $this->getNamespace() . '\Auth';
-        $params = $this->_getRequestParams();
         $authClassInstance = new $authClassName();
 
         // validate class
