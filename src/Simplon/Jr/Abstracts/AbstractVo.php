@@ -7,7 +7,17 @@
     /**
      * @var array
      */
-    public $_data = array();
+    protected $_data = array();
+
+    // ##########################################
+
+    /**
+     * @return AbstractVo
+     */
+    public static function init()
+    {
+      return new static;
+    }
 
     // ##########################################
 
@@ -27,16 +37,24 @@
 
     /**
      * @param $key
-     * @return mixed
+     * @return bool|mixed
      */
     public function getByKey($key)
     {
-      if(array_key_exists($key, $this->_data))
+      if(! isset($this->_data[$key]))
       {
-        return $this->_data[$key];
+        return NULL;
       }
 
-      return FALSE;
+      $value = $this->_data[$key];
+
+      // cast to string
+      if(! is_array($value))
+      {
+        $value = (string)$value;
+      }
+
+      return $value;
     }
 
     // ##########################################
