@@ -73,7 +73,7 @@
 
     /**
      * @param array $data
-     * @return AbstractVo
+     * @return AbstractVo|static
      */
     public function setData($data)
     {
