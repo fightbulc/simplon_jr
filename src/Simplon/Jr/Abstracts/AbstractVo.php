@@ -12,16 +12,6 @@
     // ##########################################
 
     /**
-     * @return AbstractVo
-     */
-    public static function init()
-    {
-      return new static;
-    }
-
-    // ##########################################
-
-    /**
      * @param string $key
      * @param $val
      * @return AbstractVo
