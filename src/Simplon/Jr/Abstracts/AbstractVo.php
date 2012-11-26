@@ -27,7 +27,7 @@
 
     /**
      * @param $key
-     * @return bool|mixed
+     * @return array|null|string
      */
     public function getByKey($key)
     {
