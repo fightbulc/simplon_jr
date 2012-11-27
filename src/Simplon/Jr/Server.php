@@ -2,6 +2,9 @@
 
   namespace Simplon\Jr;
 
+  use Simplon\Border\Request;
+  use Simplon\Border\Response;
+
   class Server
   {
     /** @var \Simplon\Border\Request */
@@ -28,7 +31,7 @@
     {
       if(isset($this->_requestHandle) === FALSE)
       {
-        $this->_requestHandle = \Simplon\Border\Request::getInstance();
+        $this->_requestHandle = Request::getInstance();
       }
 
       return $this->_requestHandle;
@@ -43,7 +46,7 @@
     {
       if(isset($this->_responseHandle) === FALSE)
       {
-        $this->_responseHandle = \Simplon\Border\Response::init();
+        $this->_responseHandle = new Response();
       }
 
       return $this->_responseHandle;
