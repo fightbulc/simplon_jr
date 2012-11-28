@@ -2,7 +2,9 @@
 
   namespace Simplon\Jr;
 
-  abstract class Gateway extends \Simplon\Jr\Server implements \Simplon\Jr\Interfaces\InterfaceGateway
+  use Simplon\Jr\Interfaces\InterfaceGateway;
+
+  abstract class Gateway extends Server implements InterfaceGateway
   {
     protected $apiDefinition = array();
     protected $apiNamespace;

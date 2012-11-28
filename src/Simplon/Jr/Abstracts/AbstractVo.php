@@ -56,7 +56,7 @@
     {
       $data = $this->getData();
 
-      return ! empty($data) ? TRUE : FALSE;
+      return ! empty($data);
     }
 
     // ##########################################

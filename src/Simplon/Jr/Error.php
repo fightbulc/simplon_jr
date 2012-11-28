@@ -5,6 +5,16 @@
   class Error
   {
     /**
+     * @return Server
+     */
+    protected static function _getServer()
+    {
+      return new Server();
+    }
+
+    // ##########################################
+
+    /**
      * @param $errNo
      * @param $errStr
      * @param $errorFile
@@ -12,8 +22,6 @@
      */
     public static function _errorHandling($errNo, $errStr, $errorFile, $errorLine)
     {
-      $server = new \Simplon\Jr\Server;
-
       $error = array(
         'no'      => $errNo,
         'message' => $errStr,
@@ -21,8 +29,10 @@
         'line'    => $errorLine
       );
 
-      $server->setErrorResponse($error);
-      $server->sendResponse();
+      // send
+      self::_getServer()
+        ->setErrorResponse($error)
+        ->sendResponse();
 
       die();
     }
@@ -34,8 +44,6 @@
      */
     public static function _exceptionHandling(\Exception $exception)
     {
-      $server = new \Simplon\Jr\Server;
-
       $error = array(
         'no'      => $exception->getCode(),
         'message' => $exception->getMessage(),
@@ -44,8 +52,10 @@
         'trace'   => $exception->getTrace()
       );
 
-      $server->setErrorResponse($error);
-      $server->sendResponse();
+      // send
+      self::_getServer()
+        ->setErrorResponse($error)
+        ->sendResponse();
 
       die();
     }

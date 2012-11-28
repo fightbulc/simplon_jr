@@ -144,22 +144,27 @@
      */
     public function setSuccessfulResponse($responseId, $response)
     {
-      $this->_setResponseStatusCode('200');
-      $this->_setResponseId($responseId);
-      $this->_setResponseType('result');
-      $this->_setResponseContent($response);
+      $this
+        ->_setResponseStatusCode('200')
+        ->_setResponseId($responseId)
+        ->_setResponseType('result')
+        ->_setResponseContent($response);
     }
 
     // ##########################################
 
     /**
      * @param array $error
+     * @return Server
      */
     public function setErrorResponse(array $error)
     {
-      $this->_setResponseStatusCode('500');
-      $this->_setResponseType('error');
-      $this->_setResponseContent($error);
+      $this
+        ->_setResponseStatusCode('500')
+        ->_setResponseType('error')
+        ->_setResponseContent($error);
+
+      return $this;
     }
 
     // ##########################################
