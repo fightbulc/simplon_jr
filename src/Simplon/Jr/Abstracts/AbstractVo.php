@@ -38,8 +38,8 @@
 
       $value = $this->_data[$key];
 
-      // cast to string
-      if(! is_array($value))
+      // if not array/bool: cast to string
+      if(! is_array($value) && ! is_bool($value))
       {
         $value = (string)$value;
       }
