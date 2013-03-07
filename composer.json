@@ -17,8 +17,8 @@
   "minimum-stability": "dev",
 
   "require": {
-    "php": ">=5.4.8",
-    "simplon/border": "0.5.0"
+    "php": ">=5.4",
+    "simplon/border": "0.5.1"
   },
 
   "autoload": {
