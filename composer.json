@@ -18,7 +18,7 @@
 
   "require": {
     "php": ">=5.4.8",
-    "simplon/border": "dev-master"
+    "simplon/border": "0.5.0"
   },
 
   "autoload": {
