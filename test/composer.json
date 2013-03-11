@@ -4,7 +4,7 @@
 
   "require": {
     "php": ">=5.4",
-    "simplon/jr": "0.5.2",
+    "simplon/jr": "0.5.3",
     "fightbulc/jsonrpc_curl": "0.5.1"
   },
 
