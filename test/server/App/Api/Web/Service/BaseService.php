@@ -2,34 +2,28 @@
 
   namespace App\Api\Web\Service;
 
+  use App\Manager\UserManager;
+
   class BaseService
   {
     /**
-     * @param string $name
      * @return string
      */
-    public function hello($name)
+    public function hello()
     {
-      return 'Hello ' . $name;
+      return 'Hello!';
     }
 
     // ##########################################
 
     /**
-     * @param $firstName
-     * @param $age
-     * @return array
+     * @param $id
+     * @return string
      */
-    public function showMoreResponse($firstName, $age)
+    public function getUsernameById($id)
     {
-      return [
-        'message' => [
-          'yes' => 123
-        ],
-        'request' => [
-          'firstName' => $firstName,
-          'age'       => $age,
-        ],
-      ];
+      $username = (new UserManager())->getUsername($id);
+
+      return $username;
     }
   }

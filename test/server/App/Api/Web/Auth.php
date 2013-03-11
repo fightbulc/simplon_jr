@@ -4,8 +4,13 @@
 
   class Auth
   {
-    public function init(array $requestParams)
+    public function init($user, $pass)
     {
-      return TRUE;
+      if($user === 'admin' && $pass == '123456')
+      {
+        return TRUE;
+      }
+
+      return FALSE;
     }
   }

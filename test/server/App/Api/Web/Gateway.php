@@ -43,7 +43,7 @@
     {
       return array(
         'Web.Base.hello',
-        'Web.Base.showMoreResponse',
+        'Web.Base.getUsernameById',
       );
     }
   }
