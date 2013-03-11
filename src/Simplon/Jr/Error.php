@@ -22,12 +22,12 @@
      */
     public static function _errorHandling($errNo, $errStr, $errorFile, $errorLine)
     {
-      $error = array(
+      $error = [
         'no'      => $errNo,
         'message' => $errStr,
         'file'    => $errorFile,
         'line'    => $errorLine
-      );
+      ];
 
       // send
       self::_getServer()
@@ -44,13 +44,13 @@
      */
     public static function _exceptionHandling(\Exception $exception)
     {
-      $error = array(
+      $error = [
         'no'      => $exception->getCode(),
         'message' => $exception->getMessage(),
         'file'    => $exception->getFile(),
         'line'    => $exception->getLine(),
         'trace'   => $exception->getTrace()
-      );
+      ];
 
       // send
       self::_getServer()

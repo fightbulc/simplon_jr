@@ -20,7 +20,7 @@
     protected $_responseType;
 
     /** @var array */
-    protected $_responseContent = array();
+    protected $_responseContent = [];
 
     // ##########################################
 

@@ -6,7 +6,7 @@
 
   abstract class Gateway extends Server implements InterfaceGateway
   {
-    protected $apiDefinition = array();
+    protected $apiDefinition = [];
     protected $apiNamespace;
     protected $_requestedDomain;
     protected $_requestedClass;
@@ -18,9 +18,9 @@
     public function __construct()
     {
       // error/exception handler
-      set_error_handler(array('\Simplon\Jr\Error', '_errorHandling'));
-      set_exception_handler(array('\Simplon\Jr\Error', '_exceptionHandling'));
-      register_shutdown_function(array('\Simplon\Jr\Error', '_fatalErrorHandling'));
+      set_error_handler(['\Simplon\Jr\Error', '_errorHandling']);
+      set_exception_handler(['\Simplon\Jr\Error', '_exceptionHandling']);
+      register_shutdown_function(['\Simplon\Jr\Error', '_fatalErrorHandling']);
 
       // 512 MB
       ini_set('memory_limit', '536870912');
@@ -287,8 +287,8 @@
         ->getParameters();
 
       // check params existence
-      $missingParams = array();
-      $preparedParams = array();
+      $missingParams = [];
+      $preparedParams = [];
 
       foreach($parametersReflector as $parameter)
       {
