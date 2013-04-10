@@ -199,19 +199,19 @@
             // generic structure check
             if (!$isJsonRpc)
             {
-                $this->_throwException(ErrorCodesConstants::INVALID_JSON_REQUEST_MESSAGE, ErrorCodesConstants::INVALID_JSON_REQUEST_CODE);
+                $this->_throwException(ErrorCodesConstants::SIMPLON_JR_ERROR_CODE, ErrorCodesConstants::INVALID_JSON_REQUEST_MESSAGE, ErrorCodesConstants::INVALID_JSON_REQUEST_SUBCODE);
             }
 
             // check if listed within valid services
             if (!$this->isEnabled())
             {
-                $this->_throwException(ErrorCodesConstants::GATEWAY_ACCESS_DENIED_MESSAGE, ErrorCodesConstants::GATEWAY_ACCESS_DENIED_CODE);
+                $this->_throwException(ErrorCodesConstants::SIMPLON_JR_ERROR_CODE, ErrorCodesConstants::GATEWAY_ACCESS_DENIED_MESSAGE, ErrorCodesConstants::GATEWAY_ACCESS_DENIED_SUBCODE);
             }
 
             // check if listed within valid services
             if ($this->getValidServices() === FALSE || !in_array($this->_getRequestMethod(), $this->getValidServices()))
             {
-                $this->_throwException(ErrorCodesConstants::SERVICE_REQUEST_DENIED_MESSAGE, ErrorCodesConstants::SERVICE_REQUEST_DENIED_CODE);
+                $this->_throwException(ErrorCodesConstants::SIMPLON_JR_ERROR_CODE, ErrorCodesConstants::SERVICE_REQUEST_DENIED_MESSAGE, ErrorCodesConstants::SERVICE_REQUEST_DENIED_SUBCODE);
             }
 
             return TRUE;
@@ -242,7 +242,7 @@
 
                 if ($authClassResponse === FALSE)
                 {
-                    $this->_throwException(ErrorCodesConstants::AUTH_FAILED_MESSAGE, ErrorCodesConstants::AUTH_FAILED_CODE);
+                    $this->_throwException(ErrorCodesConstants::SIMPLON_JR_ERROR_CODE, ErrorCodesConstants::AUTH_FAILED_MESSAGE, ErrorCodesConstants::AUTH_FAILED_SUBCODE);
                 }
             }
 
@@ -279,7 +279,7 @@
             // check if method exists
             if (!$classReflector->hasMethod($methodName))
             {
-                $this->_throwException(ErrorCodesConstants::SERVICE_METHOD_MISSING_MESSAGE, ErrorCodesConstants::SERVICE_METHOD_MISSING_CODE);
+                $this->_throwException(ErrorCodesConstants::SIMPLON_JR_ERROR_CODE, ErrorCodesConstants::SERVICE_METHOD_MISSING_MESSAGE, ErrorCodesConstants::SERVICE_METHOD_MISSING_SUBCODE);
             }
 
             // get parameters reflector
@@ -309,7 +309,7 @@
             if (count($missingParams) > 0)
             {
                 $message = str_replace('{{parameters}}', join(', ', $missingParams), ErrorCodesConstants::SERVICE_METHOD_PARAMETERS_MISSING_MESSAGE);
-                $this->_throwException($message, ErrorCodesConstants::SERVICE_METHOD_PARAMETERS_MISSING_CODE);
+                $this->_throwException(ErrorCodesConstants::SIMPLON_JR_ERROR_CODE, $message, ErrorCodesConstants::SERVICE_METHOD_PARAMETERS_MISSING_SUBCODE);
             }
 
             // return params in correct order
@@ -329,21 +329,9 @@
             $preparedMethodParams = $this->_getPreparedMethodParameters($classReflector, $methodName, $requestParams);
 
             // run class
-            try
-            {
-                $response = $classReflector
-                    ->getMethod($methodName)
-                    ->invokeArgs($classInstance, $preparedMethodParams);
-            }
-            catch (RpcErrorException $e)
-            {
-                $response = [
-                    'type'    => 'error',
-                    'message' => $e->getMessage(),
-                    'code'    => $e->getCode(),
-                    'subcode' => $e->getSubcode(),
-                ];
-            }
+            $response = $classReflector
+                ->getMethod($methodName)
+                ->invokeArgs($classInstance, $preparedMethodParams);
 
             // set response
             $this->setSuccessfulResponse($this->_getRequestId(), $response);

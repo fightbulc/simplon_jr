@@ -8,7 +8,7 @@
 
         // ######################################
 
-        public function __construct($message, $code, $subcode = 0)
+        public function __construct($code, $message, $subcode = 0)
         {
             $this->message = $message;
             $this->code = $code;

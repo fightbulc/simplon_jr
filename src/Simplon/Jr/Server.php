@@ -158,14 +158,15 @@
         // ##########################################
 
         /**
+         * @param $statusCode
          * @param array $error
          *
-         * @return Server
+         * @return $this
          */
-        public function setErrorResponse(array $error)
+        public function setErrorResponse($statusCode, array $error)
         {
             $this
-                ->_setResponseStatusCode($error['code'])
+                ->_setResponseStatusCode($statusCode)
                 ->_setResponseType('error')
                 ->_setResponseContent($error);
 

@@ -40,21 +40,39 @@
         // ############################################
 
         /**
-         * @param \Exception $exception
+         * @param \Exception $e
          */
-        public static function _exceptionHandling(\Exception $exception)
+        public static function _exceptionHandling(\Exception $e)
         {
-            $error = [
-                'code'    => ErrorCodesConstants::EXCEPTION_UNCAUGHT,
-                'message' => $exception->getMessage(),
-                'file'    => $exception->getFile(),
-                'line'    => $exception->getLine(),
-                'trace'   => $exception->getTrace()
-            ];
+            // handle known exception
+            if ($e instanceof RpcErrorException)
+            {
+                $statusCode = 200;
+
+                $error = [
+                    'code'    => $e->getCode(),
+                    'message' => $e->getMessage(),
+                    'subcode' => $e->getSubcode(),
+                ];
+            }
+
+            // handle uncaught exception
+            else
+            {
+                $statusCode = 500;
+
+                $error = [
+                    'code'    => $e->getCode(),
+                    'message' => $e->getMessage(),
+                    'file'    => $e->getFile(),
+                    'line'    => $e->getLine(),
+                    'trace'   => $e->getTrace()
+                ];
+            }
 
             // send
             self::_getServer()
-                ->setErrorResponse($error)
+                ->setErrorResponse($statusCode, $error)
                 ->sendResponse();
 
             die();
