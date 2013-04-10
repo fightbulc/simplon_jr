@@ -31,7 +31,7 @@
 
             // send
             self::_getServer()
-                ->setErrorResponse($error)
+                ->setErrorResponse(500, $error)
                 ->sendResponse();
 
             die();

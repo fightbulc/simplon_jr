@@ -2,7 +2,7 @@
     "name": "simplon/jr",
     "description": "JSON-RPC Server",
     "homepage": "https://github.com/fightbulc/simplon_jr",
-    "version": "0.6.1",
+    "version": "0.6.2",
     "type": "library",
     "keywords": ["json-rpc"],
     "license": "MIT",
