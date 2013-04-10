@@ -2,7 +2,7 @@
 
     namespace Simplon\Jr;
 
-    class ErrorException extends \Exception
+    class RpcErrorException extends \Exception
     {
         protected $subcode;
 

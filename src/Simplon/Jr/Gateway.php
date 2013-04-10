@@ -335,7 +335,7 @@
                     ->getMethod($methodName)
                     ->invokeArgs($classInstance, $preparedMethodParams);
             }
-            catch (ErrorException $e)
+            catch (RpcErrorException $e)
             {
                 $response = [
                     'type'    => 'error',

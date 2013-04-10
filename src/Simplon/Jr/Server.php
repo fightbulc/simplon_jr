@@ -191,10 +191,10 @@
          * @param $code
          * @param int $subcode
          *
-         * @throws \ErrorException
+         * @throws RpcErrorException
          */
         protected function _throwException($message, $code, $subcode = 0)
         {
-            throw new \ErrorException($message, $code, $subcode);
+            throw new RpcErrorException($message, $code, $subcode);
         }
     }
