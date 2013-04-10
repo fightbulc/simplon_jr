@@ -1,29 +1,29 @@
 {
-  "name": "simplon/jr",
-  "description": "JSON-RPC Server",
-  "homepage": "https://github.com/fightbulc/simplon_jr",
-  "version": "0.5.4",
-  "type": "library",
-  "keywords": ["json-rpc"],
-  "license": "MIT",
-  "authors": [
-    {
-      "name": "Tino Ehrich",
-      "email": "opensource@efides.com",
-      "role": "developer"
+    "name": "simplon/jr",
+    "description": "JSON-RPC Server",
+    "homepage": "https://github.com/fightbulc/simplon_jr",
+    "version": "0.5.4",
+    "type": "library",
+    "keywords": ["json-rpc"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Tino Ehrich",
+            "email": "opensource@efides.com",
+            "role": "developer"
+        }
+    ],
+
+    "minimum-stability": "dev",
+
+    "require": {
+        "php": ">=5.4",
+        "simplon/border": "0.5.2"
+    },
+
+    "autoload": {
+        "psr-0": {
+            "Simplon\\Jr\\": "src/"
+        }
     }
-  ],
-
-  "minimum-stability": "dev",
-
-  "require": {
-    "php": ">=5.4",
-    "simplon/border": "0.5.2"
-  },
-
-  "autoload": {
-    "psr-0": {
-      "Simplon\\Jr\\": "src/"
-    }
-  }
 }

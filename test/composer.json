@@ -1,16 +1,16 @@
 {
-  "name": "simplon/jr_testing",
-  "description": "JSON-RPC Server testing",
+    "name": "simplon/jr_testing",
+    "description": "JSON-RPC Server testing",
 
-  "require": {
-    "php": ">=5.4",
-    "simplon/jr": "0.5.3",
-    "fightbulc/jsonrpc_curl": "0.5.1"
-  },
+    "require": {
+        "php": ">=5.4",
+        "simplon/jr": "0.5.3",
+        "fightbulc/jsonrpc_curl": "0.5.1"
+    },
 
-  "autoload": {
-    "psr-0": {
-      "App": "server/"
+    "autoload": {
+        "psr-0": {
+            "App": "server/"
+        }
     }
-  }
 }
