@@ -18,12 +18,10 @@
         public function __construct()
         {
             // create an exception out of an error
-            set_error_handler(
-                create_function(
-                    '$severity, $message, $file, $line',
-                    'throw new \ErrorException($message, $severity, $severity, $file, $line);'
-                )
-            );
+            set_error_handler(function ($severity, $message, $file, $line)
+            {
+                throw new \ErrorException($message, $severity, $severity, $file, $line);
+            });
 
             // exception handler
             set_exception_handler(['\Simplon\Jr\Error', '_exceptionHandling']);
@@ -110,8 +108,8 @@
         protected function _getRequestId()
         {
             return $this
-                ->_getRequestHandle()
-                ->getJsonRpcId();
+                   ->_getRequestHandle()
+                   ->getJsonRpcId();
         }
 
         // ##########################################
@@ -122,8 +120,8 @@
         protected function _getRequestMethod()
         {
             return $this
-                ->_getRequestHandle()
-                ->getJsonRpcMethod();
+                   ->_getRequestHandle()
+                   ->getJsonRpcMethod();
         }
 
         // ##########################################
@@ -134,8 +132,8 @@
         protected function _getRequestParams()
         {
             return $this
-                ->_getRequestHandle()
-                ->getJsonRpcParams();
+                   ->_getRequestHandle()
+                   ->getJsonRpcParams();
         }
 
         // ##########################################
@@ -200,8 +198,8 @@
         protected function _validateRequest()
         {
             $isJsonRpc = $this
-                ->_getRequestHandle()
-                ->isJsonRpc();
+                         ->_getRequestHandle()
+                         ->isJsonRpc();
 
             // generic structure check
             if (!$isJsonRpc)
@@ -244,8 +242,8 @@
 
                 // run auth
                 $authClassResponse = $classReflector
-                    ->getMethod($methodName)
-                    ->invokeArgs($authClassInstance, $preparedMethodParams);
+                                     ->getMethod($methodName)
+                                     ->invokeArgs($authClassInstance, $preparedMethodParams);
 
                 if ($authClassResponse === FALSE)
                 {
@@ -291,8 +289,8 @@
 
             // get parameters reflector
             $parametersReflector = $classReflector
-                ->getMethod($methodName)
-                ->getParameters();
+                                   ->getMethod($methodName)
+                                   ->getParameters();
 
             // check params existence
             $missingParams = [];
@@ -337,8 +335,8 @@
 
             // run class
             $response = $classReflector
-                ->getMethod($methodName)
-                ->invokeArgs($classInstance, $preparedMethodParams);
+                        ->getMethod($methodName)
+                        ->invokeArgs($classInstance, $preparedMethodParams);
 
             // set response
             $this->setSuccessfulResponse($this->_getRequestId(), $response);
