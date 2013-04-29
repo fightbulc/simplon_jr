@@ -17,8 +17,15 @@
 
         public function __construct()
         {
-            // error/exception handler
-            set_error_handler(['\Simplon\Jr\Error', '_errorHandling']);
+            // create an exception out of an error
+            set_error_handler(
+                create_function(
+                    '$severity, $message, $file, $line',
+                    'throw new \ErrorException($message, $severity, $severity, $file, $line);'
+                )
+            );
+
+            // exception handler
             set_exception_handler(['\Simplon\Jr\Error', '_exceptionHandling']);
             register_shutdown_function(['\Simplon\Jr\Error', '_fatalErrorHandling']);
 
