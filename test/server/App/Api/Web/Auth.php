@@ -1,16 +1,16 @@
 <?php
 
-  namespace App\Api\Web;
+    namespace App\Api\Web;
 
-  class Auth
-  {
-    public function init($user, $pass)
+    class Auth
     {
-      if($user === 'admin' && $pass == '123456')
-      {
-        return TRUE;
-      }
+        public function init($user, $pass)
+        {
+            if ($user === 'admin' && $pass == '123456')
+            {
+                return TRUE;
+            }
 
-      return FALSE;
+            return FALSE;
+        }
     }
-  }

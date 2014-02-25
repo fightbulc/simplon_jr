@@ -11,6 +11,8 @@
 
 A JSON-RPC Server
 
+Current version: 0.6.5
+
 ## 1. Introduction
 
 <a name="info-json"></a>

@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "name": "simplon/jr",
   "description": "JSON-RPC Server",
   "homepage": "https://github.com/fightbulc/simplon_jr",
@@ -13,17 +14,12 @@
       "role": "developer"
     }
   ],
-
-  "minimum-stability": "dev",
-
-  "require": {
-    "php": ">=5.4",
-    "simplon/border": "0.5.2"
-  },
-
-  "autoload": {
-    "psr-0": {
-      "Simplon\\Jr\\": "src/"
-    }
-  }
-}
+=======
+    "name": "simplon/jr",
+    "description": "JSON-RPC Server",
+    "homepage": "https://github.com/fightbulc/simplon_jr",
+    "version": "0.6.4",
+    "type": "library",
+    "keywords": ["json-rpc"],
+    "license": "MIT",
+    "au
