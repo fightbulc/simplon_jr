@@ -1,6 +1,6 @@
 <?php
 
-namespace Simplon\Service;
+namespace Simplon\Jr;
 
 use Simplon\Error\ErrorHandler;
 use Simplon\Error\ErrorResponse;

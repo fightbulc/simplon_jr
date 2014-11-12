@@ -1,6 +1,6 @@
 <?php
 
-namespace Simplon\Service;
+namespace Simplon\Jr;
 
 class ErrorException extends \Exception
 {
