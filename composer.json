@@ -1,27 +1,28 @@
 {
     "name": "simplon/jr",
-    "description": "JSON-RPC Server",
+    "description": "Bootstrap Service Library",
     "homepage": "https://github.com/fightbulc/simplon_jr",
-    "version": "0.6.5",
     "type": "library",
-    "keywords": ["json-rpc"],
+    "keywords": [
+        "backend",
+        "service",
+        "jsonrpc"
+    ],
     "license": "MIT",
     "authors": [
         {
             "name": "Tino Ehrich",
-            "email": "opensource@efides.com",
+            "email": "tino@bigpun.me",
             "role": "developer"
         }
     ],
-
     "require": {
-        "php": ">=5.4",
-        "simplon/border": "0.5.*"
+        "php": ">=5.3",
+        "simplon/error": "0.1.*"
     },
-
     "autoload": {
-        "psr-0": {
-            "Simplon\\Jr": "src/"
+        "psr-4": {
+            "Simplon\\Jr\\": "src/"
         }
     }
 }
